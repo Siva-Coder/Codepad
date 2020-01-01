@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Code Editor.com</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="css/mdb.min.css" rel="stylesheet">
+  <!-- Your custom styles (optional) -->
+  <link href="css/style.min.css" rel="stylesheet">
+
+
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+ <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+  <style type="text/css">
+   @import url(https://fonts.googleapis.com/css?family=Roboto:400,400italic,600,600italic,700,700italic);
+body {
+		font-family: 'Roboto';
+    background-color: #eeeeee;
+    margin: 0;
+    padding: 0;
+ 
+}
+
+.coding_part{
+	height:520px;
+	width:100%;
+	padding:0;
+	margin:10px;
+border-radius:5px;
+  background: #32393d;
+  color: white;
+}
+#draggable
+{
+  background: #32393d;
+  padding: 0;
+  overflow: hidden;
+  box-shadow: 0 0 15px rgb(194, 51, 237,0.6);
+  border-radius:5px;
+}
+header {
+    position: relative;
+    color: rgb(12, 12, 12);
+    background: #2c2c2c;
+}
+
+.ui-widget-header{
+  background:#f9f9f9;
+}
+.hide {
+		display: none;
+}
+
+.tab-content {
+    padding:0px;
+    color: #fff;
+}
+
+#material-tabs {
+		position: relative;
+		display: block;
+	  padding:0;
+
+}
+#material-tabs2 {
+		position: relative;
+		display: block;
+	  padding:0;
+  margin: 0;
+}
+#material-tabs>a {
+		position: relative;
+	 display:inline-block;
+		text-decoration: none;
+		padding: 15px;
+		text-transform: uppercase;
+		font-size: 14px;
+		font-weight: 600;
+		color: #333;
+		text-align: center;
+	
+}
+#material-tabs2>a {
+		position: relative;
+	 display:inline-block;
+		text-decoration: none;
+		padding: 15px;
+		text-transform: uppercase;
+		font-size: 12px;
+		font-weight: 600;
+		color: #333;
+		text-align: center;
+
+}
+#material-tabs>a.active {
+		font-weight: 700;
+    outline:none;
+    background: rgb(204, 0, 255);
+    box-shadow: 0 0 10px rgba(0,0,0,.3);
+    color: white;
+}
+#material-tabs2>a.active {
+		font-weight: 700;
+    outline:none;
+    background: rgb(204, 0, 255);
+    box-shadow: 0 0 10px rgba(0,0,0,.3);
+    color: white;
+}
+#material-tabs>a:not(.active):hover {
+		background-color: inherit;
+		color: #7c848a;
+}
+#material-tabs2>a:not(.active):hover {
+		background-color: inherit;
+		color: #7c848a;
+}
+@media only screen and (max-width: 520px) {
+		.nav-tabs#material-tabs >li>a {
+				font-size: 11px;
+		}
+}
+@media only screen and (max-width: 520px) {
+		.nav-tabs#material-tabs2>li>a {
+				font-size: 11px;
+		}
+}
+.yellow-bar {
+		position: absolute;
+		z-index: 10;
+		bottom: -1px;
+		height: 3px;
+		background: #32393d;
+		display: block;
+		left: 0;
+		transition: left .2s ease;
+		-webkit-transition: left .2s ease;
+}
+
+#tab1-tab.active ~ span.yellow-bar {
+		left: 0;
+		width: 68px;
+}
+
+#tab2-tab.active ~ span.yellow-bar {
+		left:72px;
+		width: 57px;
+}
+
+#tab3-tab.active ~ span.yellow-bar {
+		left: 133px;
+		width: 113px;
+}
+
+#tab4-tab.active ~ span.yellow-bar {
+		left:392px;
+		width: 163px;
+}
+
+textarea{
+
+		width: 98%;
+		height: 460px;
+		font-size: 17px;
+		border: 0;
+    margin: 0;
+    color: #fff;
+    font-family: Consolas,Liberation Mono,Courier,monospace;
+    overflow-x:hidden;
+		overflow-y: scroll;
+		transition: all 0.5s ease-in-out;
+	}
+	
+	textarea{
+		background: transparent !important;
+		z-index: 2;
+ 
+    color:#ffffff;
+resize: none;
+    text-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+outline: none;
+	}
+  
+  .result_part
+  {
+    height:525px;
+	width:100%;
+	padding:0;
+	border-radius:5px;
+  background: #fff;
+  color: white;
+  }
+ iframe
+ {
+background: #fff;
+ }
+ #move
+{
+  padding: 0;
+  margin: 0;
+  cursor: all-scroll;
+  box-shadow: 0 2px 10px rgba(204, 0, 204, 0.5);
+  overflow: hidden;
+  border-radius:5px;
+}
+
+textarea::-webkit-scrollbar
+{
+  width:8px;
+}
+textarea::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+textarea::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: rgb(166, 92, 250);
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+#tab1::-webkit-scrollbar
+{
+  width:8px;
+}
+#tab1::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+#tab1::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: rgb(219, 219, 219);
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+ .wrapper {
+  text-transform: uppercase;
+  background: #ececec;
+  color: #555;
+  cursor: help;
+  font-family: "Gill Sans", Impact, sans-serif;
+  font-size: 20px;
+  margin: 100px 75px 10px 75px;
+  padding: 15px 20px;
+  position: relative;
+  text-align: center;
+  width: 200px;
+  -webkit-transform: translateZ(0); /* webkit flicker fix */
+  -webkit-font-smoothing: antialiased; /* webkit text rendering fix */
+}
+
+.tooltip {
+  background: rgb(42, 116, 236);
+  color: #fff;
+  display: block;
+  left: -130px;
+  border-radius: 5px;
+  top:0;
+  opacity: 0;
+  padding: 8px 20px 8px 20px;
+  pointer-events: none;
+  position: absolute;
+  width: 300%;
+  -webkit-transform: translateY(10px);
+     -moz-transform: translateY(10px);
+      -ms-transform: translateY(10px);
+       -o-transform: translateY(10px);
+          transform: translateY(10px);
+  -webkit-transition: all .25s ease-out;
+     -moz-transition: all .25s ease-out;
+      -ms-transition: all .25s ease-out;
+       -o-transition: all .25s ease-out;
+          transition: all .25s ease-out;
+  -webkit-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+     -moz-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+      -ms-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+       -o-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+          box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+}
+
+/* This bridges the gap so you can mouse into the tooltip without it disappearing */
+.fullview .tooltip:before {
+  bottom: 0px;
+  content: " ";
+  display: block;
+  height: 20px;
+  left: 0;
+  position: absolute;
+  width: 100%;
+}  
+
+/* CSS Triangles - see Trevor's post */
+.fullview .tooltip:after {
+  border-left: solid transparent 10px;
+  border-right: solid transparent 10px;
+  border-top: solid rgb(42, 116, 236) 10px;
+  bottom: 15px;
+  content: " ";
+  height: 0;
+  left: 51%;
+  margin-left: 50px;
+  position: absolute;
+  width: 0;
+  transform: rotate(-90deg);
+}
+  
+.fullview:hover .tooltip {
+  opacity: 1;
+  pointer-events: auto;
+  -webkit-transform: translateY(0px);
+     -moz-transform: translateY(0px);
+      -ms-transform: translateY(0px);
+       -o-transform: translateY(0px);
+          transform: translateY(0px);
+}
+
+/* IE can just show/hide with no transition */
+.fullview .tooltip {
+  display: none;
+}
+
+.fullview:hover .tooltip {
+  display: block;
+}
+.zindex
+{
+  z-index: 99;
+}
+#draggable {cursor: all-scroll;}
+  </style>
+   <script type="text/javascript">
+    $( function() {
+      $( "#draggable" ).draggable();
+      $( "#draggable" ).resizable();
+    } );
+    $( function() {
+      $( "#move" ).draggable();
+      $( "#move" ).resizable();
+    } );
+    </script>
+</head>
+
+<body>
+
+  
+  <!--Navbar -->
+<nav class="mb-1 navbar navbar-expand-lg navbar-dark secondary-color scrolling-navbar lighten-1">
+    <a class="navbar-brand" href="#">MY CODE.COM</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
+      aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+    </div>
+  </nav>
+  <!--/.Navbar -->
+ 
+  
+
+
+
+  <div class="modal fade" id="modalSubscriptionForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Download Your Code</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form">
+          <i class="fas fa-download prefix grey-text"></i>
+          <input type="text" id="form3" class="form-control validate">
+          <label data-error="wrong" data-success="right" for="form3">Filename.html</label>
+        </div>
+
+       
+
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button class="btn btn-indigo" id="download">Download <i class="fas fa-paper-plane-o ml-1"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+ 
+
+<div class="row my-5">
+  <div class="col-md-4">
+  <div class="container ui-widget-content" id="draggable">
+      <header class="ui-widget-header">
+          <div id="material-tabs">
+              <a id="tab1-tab" href="#tab1" class="active">HTML</a>
+              <a id="tab2-tab" href="#tab2">CSS</a>
+              <a id="tab3-tab" href="#tab3">JAVASCRIPT</a>
+              <span class="yellow-bar"></span>
+              <button type="button" class="btn btn-deep-purple btn-sm"  style="padding:7px 10px 7px 10px;float:right;margin-top: 12px;" onclick="copytext()">
+                <i class="far fa-copy"></i>&nbsp;&nbsp;Copy Code</button>
+          </div>
+      </header>
+  
+      <div class="tab-content">
+          <div id="tab1">
+            <textarea class="mt-2 ml-2" id="html">
+</textarea>
+          </div>
+          <div id="tab2">
+            <textarea class="mt-2 ml-2" id="css">
+</textarea>
+          </div>
+          <div id="tab3">
+            <textarea class="mt-2 ml-2" id="js">
+</textarea>
+          </div>
+               
+      </div>
+  </div>
+  </div>
+
+  <div class="col-md-8">
+    <div  id="move" class="ui-widget-content">
+      <div class="container result_part">
+          <header>
+              <div id="material-tabs2">
+                    <a href="" class="btn btn-secondary btn-rounded white-text" data-toggle="modal" data-target="#modalSubscriptionForm">
+                      <i class="fas fa-download"></i> &nbsp;&nbsp; Download Code</a>
+                     
+                     <a onclick="fullscreen()" href="#" title="Fullscreen View" style="float:right; padding: 10px;z-index:50;" class="bg-secondary fullview mr-3 text-white mt-2">
+                        <i class="fas fa-expand" style="font-size:20px;"></i>
+                      <div class="tooltip">Full Screen!</div>
+                    </a>
+
+
+              </div>
+          </header>
+      
+          <div class="tab-content">
+              
+                  <iframe id="code"  class="output" style="width:100%;  height: 466px;outline: none;padding:0;margin:0;border: none;"></iframe>
+            
+                   
+          </div>
+      </div>
+    </div>
+      </div>
+
+  </div><!---- end row-->
+  <!-- end container -->
+
+
+
+<!-- Footer -->
+<footer class="page-footer font-small secondary-color">
+
+  <!-- Footer Elements -->
+  <div class="container">
+
+    
+
+
+    <div class="row">
+
+      <!-- Grid column -->
+      <div class="col-md-4 mx-auto py-5">
+
+         <!-- Facebook -->
+         <a class="fb-ic">
+          <i class="fab fa-facebook-f fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+        </a>
+        <!-- Twitter -->
+        <a class="tw-ic">
+          <i class="fab fa-twitter fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+        </a>
+        
+        
+        <!--Instagram-->
+        <a class="ins-ic">
+          <i class="fab fa-instagram fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+        </a>
+        
+
+      </div>
+      <!-- Grid column -->
+
+   
+
+      <!-- Grid column -->
+      <div class="col-md-8 py-5 flex-center">
+
+        <!-- Links -->
+  
+
+        <p class="mr-3">
+          <i class="fas fa-home mr-2"></i> Guntur,andhrapradesh</p>
+        <p class="mr-3">
+          <i class="fas fa-envelope mr-2"></i> sambasivarao1253@gmail.com</p>
+        <p class="mr-3">
+          <i class="fas fa-phone mr-2"></i>+ 9603263741</p>
+        
+
+      </div>
+      <!-- Grid column -->
+
+    
+
+    </div>
+    <!-- Grid row -->
+
+
+
+  </div>
+  <!-- Footer Elements -->
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2019 Copyright:
+    <a href="#"> CodeEditor.com</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
+
+
+  <!-- SCRIPTS -->
+
+  <!-- JQuery -->
+
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="js/mdb.min.js"></script>
+  <!-- Initializations -->
+  <script type="text/javascript" src="compile.js"></script>
+    <!-- download code -->
+  <script type="text/javascript" src="code_download.js"></script>
+  <script type="text/javascript">
+    function fullscreen()
+    {
+  var elem = document.getElementById("code");
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen();
+  } else if (elem.mozRequestFullScreen) { /* Firefox */
+    elem.mozRequestFullScreen();
+  } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+    elem.webkitRequestFullscreen();
+  } else if (elem.msRequestFullscreen) { /* IE/Edge */
+    elem.msRequestFullscreen();
+  }
+    }
+
+
+    function copytext() {
+  var copyText = document.getElementById("html");
+  copyText.select();
+  document.execCommand("copy");
+  alert("Copied the text: " + copyText.value);
+}
+  </script>
+  <script type="text/javascript">
+    // Animations initialization
+    new WOW().init();
+
+  </script>
+
+  <script type="text/javascript">
+  $(document).ready(function() {
+		$('#material-tabs').each(function() {
+
+				var $active, $content, $links = $(this).find('a');
+
+				$active = $($links[0]);
+				$active.addClass('active');
+
+				$content = $($active[0].hash);
+
+				$links.not($active).each(function() {
+						$(this.hash).hide();
+				});
+
+				$(this).on('click', 'a', function(e) {
+
+						$active.removeClass('active');
+						$content.hide();
+
+						$active = $(this);
+						$content = $(this.hash);
+
+						$active.addClass('active');
+						$content.show();
+
+						e.preventDefault();
+				});
+		});
+});
+
+$("#download").hover(function(){
+$(this).addClass("active");
+});
+  </script>
+ 
+<script type="text/javascript">
+var $zoho=$zoho || {};$zoho.salesiq = $zoho.salesiq || {widgetcode:"3e2ee2bde275f1c13cd8baa9e3568570f35249744cb223d1dc7ccd2ac455014b5766bd15a3968947aea487ce5c9017d0", values:{},ready:function(){}};var d=document;s=d.createElement("script");s.type="text/javascript";s.id="zsiqscript";s.defer=true;s.src="https://salesiq.zoho.com/widget";t=d.getElementsByTagName("script")[0];t.parentNode.insertBefore(s,t);d.write("<div id='zsiqwidget'></div>");
+</script>
+ 
+</body>
+
+</html>
